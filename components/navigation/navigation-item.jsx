@@ -19,7 +19,7 @@ function NavigationItem({ id, imageUrl, name}) {
             label={name}
         >
             <button
-                onClick={() => {}}
+                onClick={onClick}
                 className="group relative flex items-center"
             >
                 <div className={cn(

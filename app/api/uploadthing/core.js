@@ -4,9 +4,9 @@ import { auth } from "@clerk/nextjs"
 const f = createUploadthing();
 
 const handleAuth = () => {
-    const { userID } = auth();
-    if (!userID) throw new Error("Unauthorized");
-    return { userID: userID };
+    const { userId } = auth();
+    if (!userId) throw new Error("Unauthorized");
+    return { userId: userId };
 }
 
 export const ourFileRouter = {
