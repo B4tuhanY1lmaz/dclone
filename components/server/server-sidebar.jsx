@@ -4,8 +4,12 @@ import { redirect } from "next/navigation";
 import { ChannelType, MemberRole } from "@prisma/client";
 import ServerHeader from "./server-header";
 import ServerSearch from "./server-search";
+import ServerSection from "./server-section";
 import { ScrollArea } from "../ui/scroll-area";
 import { Hash, Mic, Video, ShieldCheck, ShieldQuestion, ShieldAlert, } from "lucide-react";
+import { Separator } from "../ui/separator";
+import { ServerChannel } from "./server-channel";
+import ServerMember from "./server-member";
 
 const iconMap = {
     [ChannelType.TEXT]: <Hash className="mr-2 h-4 w-4" />,
@@ -107,6 +111,81 @@ async function ServerSidebar({ serverId }) {
                         ]}
                     />
                 </div>
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2" />
+                {textChannels?.length && (
+                    <div className="mb-2">
+                        <ServerSection
+                            sectionType="channels"
+                            channelType={ChannelType.TEXT}
+                            role={role}
+                            label="Text Channels"
+                        />
+                        {textChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                server={server}
+                            />
+                        ))}
+                    </div>
+                )}
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2"/>
+                {audioChannels?.length && (
+                    <div>
+                        <ServerSection
+                            sectionType="channels"
+                            channelType={ChannelType.AUDIO}
+                            role={role}
+                            label="Audio Channels"
+                        />
+                        {audioChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                server={server}
+                            />
+                            ))}
+                    </div>
+                )}
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2"/>
+                {videoChannels?.length && (
+                    <div>
+                        <ServerSection
+                            sectionType="channels"
+                            channelType={ChannelType.VIDEO}
+                            role={role}
+                            label="Video Channels"
+                        />
+                        {videoChannels.map((channel) => (
+                            <ServerChannel
+                                key={channel.id}
+                                channel={channel}
+                                role={role}
+                                Server={server}
+                            />
+                            ))}
+                    </div>
+                    )}
+                <Separator className="bg-zinc-200 dark:bg-zinc-700 rounded-md my-2"/>
+                {members?.length && (
+                    <div className="mb-2">
+                        <ServerSection
+                            sectionType="members"
+                            channelType={members}
+                            label="Members"
+                            server={server}
+                        />
+                        {members.map((member) => (
+                            <ServerMember
+                                key={member.id}
+                                Server={server}
+                                Member={member}
+                            />
+                        ))}
+                    </div>
+                )}
             </ScrollArea>
         </div>
     )
