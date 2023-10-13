@@ -1,5 +1,6 @@
 import { Hash } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
+import { SocketIndicator } from "./socket-indicator"
 
 import MobileToggle from "../mobile-toggle"
 
@@ -21,6 +22,9 @@ function ChatHeader({ serverId, name, type, imageUrl }) {
             <p className="font-semibold text-md text-black dark:text-white">
                 {name}
             </p>
+            <div className="ml-auto">
+                <SocketIndicator />
+            </div>
         </div>
     )
 }
